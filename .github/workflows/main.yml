@@ -1,0 +1,83 @@
+name: Docker Build App
+on:
+  push:
+    branches:
+      - master
+
+env:
+  agentSO: ubuntu-latest
+  NODE-VERSION: '14'
+jobs:
+  executeScripts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: HelloWorldWithDate
+        run: echo "Hello World $(date)"
+      - name: listDirectory
+        run: ls -lah
+
+  DockerScanDockerfile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: installDockerScan
+        run: curl -L https://download.docker.com/linux/ubuntu/dists/hirsute/pool/stable/amd64/docker-scan-plugin_0.7.0~ubuntu-hirsute_amd64.deb -o docker-scan.deb      
+      - name: installpackage
+        run: sudo dpkg -i docker-scan.deb
+      - name: ExecuteDockerScan
+        run: docker scan Dockerfile
+      - name: testNpmAuditPackageJson
+        run: npm --prefix $(pwd)/app-nodejs run audit:fix
+
+  DockerBuildAndTest:
+    runs-on: ubuntu-latest
+    needs: DockerScanDockerfile
+    strategy:
+      matrix:
+        node-version: [$NODE-VERSION]
+    steps:
+      - uses: actions/checkout@v2
+      - name: showDirectory
+        run: ls -lah
+      - name: DockerBuild - Node version ${{ matrix.node-version }}
+        run: docker build app-nginx/ -t mnoskoski/app-nodesjs
+      - name: DockerRun
+        run: docker run -it -d -p 8080:80 mnoskoski/app-nodesjs
+      - name: TestRunApp
+        run: docker ps -a
+      - name: TestAcessApp
+        run: curl -v http://localhost:8080
+      - name: DockerComposeUp
+        run: docker-compose -f app-nodejs/docker-compose.yaml up -d --build
+      - name: testingExecution
+        run: docker ps -a
+
+  deploy-dev:
+    runs-on: ubuntu-latest
+    environment:
+      name: dev
+      url: 'http://mnoskoski.com'
+    needs: DockerBuildAndTest
+    steps:
+      - name: DeployDev
+        run: echo "deploy sucesso"
+      
+  deploy-hmg:
+    runs-on: ubuntu-latest
+    environment:
+      name: hmg
+      url: 'mnoskoski-hmg.com.br'
+    needs: deploy-dev
+    steps:
+      - name: deployingHmg
+        run: echo "deploy sucesso"
+
+  deploy-prod:
+    runs-on: ubuntu-latest
+    environment:
+      name: prod
+      url: 'mnoskoski-prod.com.br'
+    needs: deploy-hmg
+    steps:
+      - name: deployingProd
+        run: echo "deploy sucesso"
