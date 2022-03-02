@@ -28,7 +28,7 @@ jobs:
       - name: export variable
         run: export DOCKER_SCAN_SUGGEST=false
       - name: ExecuteDockerScan
-        run: echo $DOCKER_SCAN_SUGGEST=false && docker scan Dockerfile
+        run: echo DOCKER_SCAN_SUGGEST && docker scan Dockerfile
       - name: testNpmAuditPackageJson
         run: npm run audit:fix
 
