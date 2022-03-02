@@ -40,8 +40,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: showDirectory
         run: ls -lah
-      - name: DockerBuild - Node version ${{ matrix.node-version }}
-        run: docker build -t mnoskoski/app-nodesjs
+      - name: DockerBuildImage
+        run: docker build . -t mnoskoski/app-nodesjs
       - name: DockerRun
         run: docker run -it -d -p 8080:80 mnoskoski/app-nodesjs
       - name: TestRunApp
