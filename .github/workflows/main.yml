@@ -26,7 +26,7 @@ jobs:
       - name: installpackage
         run: sudo dpkg -i docker-scan.deb
       - name: ExecuteDockerScan
-        run: docker scan Dockerfile
+        run: export DOCKER_SCAN_SUGGEST=false && docker scan Dockerfile
       - name: testNpmAuditPackageJson
         run: npm run audit:fix
 
