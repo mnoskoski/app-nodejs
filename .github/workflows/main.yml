@@ -43,7 +43,7 @@ jobs:
       - name: DockerBuildImage
         run: docker build . -t mnoskoski/app-nodesjs
       - name: DockerRun
-        run: docker run -it -d -p 8080:80 mnoskoski/app-nodesjs
+        run: docker run -it -d -p 8080:4000 mnoskoski/app-nodesjs
       - name: TestRunApp
         run: docker ps -a
       - name: TestAcessApp
