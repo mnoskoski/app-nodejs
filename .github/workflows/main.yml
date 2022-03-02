@@ -28,28 +28,21 @@ jobs:
       - name: export variable
         run: export DOCKER_SCAN_SUGGEST=false
       - name: ExecuteDockerScan
-        run: docker scan Dockerfile
+        run: docker scan Dockerfile -y
       - name: testNpmAuditPackageJson
         run: npm run audit:fix
 
   DockerBuildAndTest:
     runs-on: ubuntu-latest
     needs: DockerScanDockerfile
-    strategy:
-      matrix:
-        node-version: [$NODE-VERSION]
     steps:
       - uses: actions/checkout@v2
-      - name: showDirectory
-        run: ls -lah
       - name: DockerBuildImage
         run: docker build . -t mnoskoski/app-nodesjs
       - name: DockerRun
         run: docker run -it -d -p 8080:4000 mnoskoski/app-nodesjs
       - name: TestRunApp
         run: docker ps -a
-      #- name: TestAcessApp
-      #  run: curl -v http://localhost:8080
       - name: DockerComposeUp
         run: docker-compose -f docker-compose.yaml up -d --build
       - name: testingExecution
