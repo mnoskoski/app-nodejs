@@ -31,7 +31,7 @@ jobs:
           echo $DOCKER_SCAN_SUGGEST
       - name: docker-scan
         run: |
-          docker scan --accept-license --version
+          docker scan hello-world
       - name: ExecuteDockerScan
         run: docker scan -f Dockerfile docker-scan:e2e
       - name: testNpmAuditPackageJson
