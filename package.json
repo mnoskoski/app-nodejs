@@ -9,7 +9,8 @@
     "audit": "npm audit --registry=https://registry.npmjs.org/ --production"
   },
   "dependencies": {
-    "express": "^4.13.3"
+    "express": "^4.13.3",
+    "hoek": "4.2.0"
   },
   "engines": {
     "node": "4.0.0"
