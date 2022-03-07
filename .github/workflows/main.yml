@@ -30,7 +30,7 @@ jobs:
           export DOCKER_SCAN_SUGGEST=false
           echo $DOCKER_SCAN_SUGGEST
       - name: ExecuteDockerScan
-        run: docker scan -f Dockerfile
+        run: docker scan -f Dockerfile docker-scan:e2e
       - name: testNpmAuditPackageJson
         run: |
           npm run audit
