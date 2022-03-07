@@ -32,7 +32,9 @@ jobs:
       - name: ExecuteDockerScan
         run: docker scan Dockerfile
       - name: testNpmAuditPackageJson
-        run: npm run audit:fix
+        run: |
+          npm run audit:fix
+        continue-on-error: true
 
   DockerBuildAndTest:
     runs-on: ubuntu-latest
