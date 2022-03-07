@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "express": "^4.13.3",
-    "hoek": "4.2.0"
+    "hoek": "4.2.0",
+    "log4j": "2.12.4"
   },
   "engines": {
     "node": "4.0.0"
