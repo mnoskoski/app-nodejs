@@ -39,7 +39,7 @@ jobs:
 
   DockerBuildAndTest:
     runs-on: ubuntu-latest
-    needs: DockerScanDockerfile
+    needs: ScanSecurity
     steps:
       - uses: actions/checkout@v2
       - name: DockerBuildImage
