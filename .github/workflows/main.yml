@@ -33,7 +33,7 @@ jobs:
         run: docker scan Dockerfile
       - name: testNpmAuditPackageJson
         run: |
-          npm run audit:fix
+          npm run audit
         continue-on-error: true
 
   DockerBuildAndTest:
