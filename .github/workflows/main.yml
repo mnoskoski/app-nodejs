@@ -16,7 +16,7 @@ jobs:
       - name: listDirectory
         run: ls -lah
 
-  DockerScanDockerfile:
+  ScanSecurity:
     runs-on: ubuntu-latest
     needs: executeScripts
     steps:
@@ -30,7 +30,7 @@ jobs:
           export DOCKER_SCAN_SUGGEST=false
           echo $DOCKER_SCAN_SUGGEST
       - name: ExecuteDockerScan
-        run: docker scan Dockerfile
+        run: docker scan -f Dockerfile
       - name: testNpmAuditPackageJson
         run: |
           npm run audit
