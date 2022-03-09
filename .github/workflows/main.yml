@@ -13,9 +13,7 @@ jobs:
     steps:
       - name: HelloWorldWithDate
         run: echo "Hello World $(date)"
-      - name: listDirectory
-        run: ls -lah
-
+  
   ScanSecurity:
     runs-on: ubuntu-latest
     needs: getValuesEnvironment
@@ -37,10 +35,9 @@ jobs:
       - name: testNpmAuditPackageJson
         run: |
           npm run audit
-          npm run lint
         continue-on-error: true
 
-  DockerBuildAndTest:
+  TestUnitAndIntegration:
     runs-on: ubuntu-latest
     needs: ScanSecurity
     steps:
@@ -49,12 +46,19 @@ jobs:
         run: docker build . -t mnoskoski/app-nodesjs
       - name: DockerRun
         run: docker run -it -d -p 8080:4000 mnoskoski/app-nodesjs
-      - name: TestRunApp
-        run: docker ps -a
       - name: DockerComposeUp
         run: docker-compose -f docker-compose.yaml up -d --build
       - name: testingExecution
         run: docker ps -a
+
+  BuildApp:
+    runs-on: ubuntu-latest
+    needs: TestUnitAndIntegration
+    steps:
+      - uses: actions/checkout@v2
+      - name: DockerBuildImage
+        run: docker build . -t mnoskoski/app-nodesjs
+      - name: push
 
   deploy-dev:
     runs-on: ubuntu-latest
