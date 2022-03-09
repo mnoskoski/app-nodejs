@@ -56,9 +56,12 @@ jobs:
     needs: TestUnitAndIntegration
     steps:
       - uses: actions/checkout@v2
-      - name: DockerBuildImage
-        run: docker build . -t mnoskoski/app-nodesjs
-      - name: push
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v2.8.0
+        with:
+          file: Dockerfile
+          push: false
+          context: .
 
   deploy-dev:
     runs-on: ubuntu-latest
