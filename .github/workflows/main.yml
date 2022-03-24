@@ -63,11 +63,15 @@ jobs:
           push: false
           context: .
 
+      - name: Hello World
+        run: echo "Hello World"
+
+
       - name: GitHub Script - example class Pipelines
         uses: actions/github-script@v6.0.0
         with:
        # The script to run
-         script: "ola Luka"
+         script: echo "ola Luka"
          debug: yes
 
 
