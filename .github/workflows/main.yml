@@ -80,6 +80,12 @@ jobs:
     steps:
       - name: DeployDev
         run: echo "deploy sucesso"
+      - name: nodenv/node-version
+        uses: nodenv/actions-node-version@v2.0.4
+        with:
+          nodenv-version: 14.0.0
+      - name: validate node version
+        run: node -v
       
   deploy-hmg:
     runs-on: ubuntu-latest
