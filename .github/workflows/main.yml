@@ -63,6 +63,14 @@ jobs:
           push: false
           context: .
 
+      - name: GitHub Script - example class Pipelines
+        uses: actions/github-script@v6.0.0
+        with:
+       # The script to run
+         script: "ola Luka"
+         debug: yes
+
+
   deploy-dev:
     runs-on: ubuntu-latest
     environment:
