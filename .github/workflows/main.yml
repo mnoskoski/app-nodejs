@@ -73,7 +73,7 @@ jobs:
     environment:
       name: dev
       url: 'http://mnoskoski.com'
-    needs: BuildApp
+    needs: BuildAndPushApp
     steps:
       - name: DeployDev
         run: echo "deploy sucesso"
