@@ -53,6 +53,8 @@ jobs:
 
   BuildAndPushApp:
     runs-on: ubuntu-latest
+    environment:
+      name: cross-environment
     needs: TestUnitAndIntegration
     steps:
       - uses: actions/checkout@v2
