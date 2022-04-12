@@ -69,6 +69,7 @@ jobs:
           file: Dockerfile
           push: true
           context: .
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/app-nodejs:latest
 
   deploy-dev:
     runs-on: ubuntu-latest
