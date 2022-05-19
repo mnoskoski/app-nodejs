@@ -2,6 +2,9 @@
 
 A página vai apresentar a hora de login que você estiver acessando.
 
+## Docker build
+docker build . -t nodejs
+
 ## Running Locally
 
 Make sure you have [Node.js](http://nodejs.org/) and the [Heroku Toolbelt](https://toolbelt.heroku.com/) installed.
