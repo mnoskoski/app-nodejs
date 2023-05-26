@@ -39,6 +39,9 @@ jobs:
         run: |
           npm run audit
         continue-on-error: true
+      - name: ValidateNPMAudit
+        if: ${{ failure() }}
+        run: echo "::error::A etapa de audit falhou. Vulnerabilidades foram encontradas"
 
   TestUnitAndIntegration:
     runs-on: ubuntu-latest
