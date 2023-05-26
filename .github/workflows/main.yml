@@ -38,10 +38,8 @@ jobs:
         
       - name: Install Trivy
         run: |
-          wget https://github.com/aquasecurity/trivy/releases/latest/download/trivy_{{ runner.os }}_{{ env.TRIVY_VERSION }}.tar.gz
-          tar zxvf trivy_{{ runner.os }}_{{ env.TRIVY_VERSION }}.tar.gz
-          sudo mv trivy /usr/local/bin/
-          rm trivy_{{ runner.os }}_{{ env.TRIVY_VERSION }}.tar.gz
+          wget https://github.com/aquasecurity/trivy/releases/latest/download/trivy_{{ runner.os }}.deb
+          sudo dpkg -i trivy_{{ runner.os }}.deb
 
       - name: ValidateImage
         run: |
