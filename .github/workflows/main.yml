@@ -35,6 +35,17 @@ jobs:
           docker scan hello-world
       - name: ExecuteDockerScan
         run: docker scan -f Dockerfile docker-scan:e2e
+        
+      - name: Install Trivy
+        run: |
+          wget https://github.com/aquasecurity/trivy/releases/latest/download/trivy_{{ runner.os }}_{{ env.TRIVY_VERSION }}.tar.gz
+          tar zxvf trivy_{{ runner.os }}_{{ env.TRIVY_VERSION }}.tar.gz
+          sudo mv trivy /usr/local/bin/
+          rm trivy_{{ runner.os }}_{{ env.TRIVY_VERSION }}.tar.gz
+
+      - name: ValidateImage
+        run: |
+          trivy image node 
       - name: testNpmAuditPackageJson
         run: |
           npm run audit
