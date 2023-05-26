@@ -38,9 +38,7 @@ jobs:
         
       - name: Install Trivy
         run: |
-          wget https://github.com/aquasecurity/trivy/releases/latest/download/trivy_{{ runner.os }}.deb
-          sudo dpkg -i trivy_{{ runner.os }}.deb
-
+          sudo snap install trivy
       - name: ValidateImage
         run: |
           trivy image node 
