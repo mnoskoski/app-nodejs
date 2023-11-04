@@ -3,10 +3,6 @@ on:
   push:
     branches:
       - master
-
-
-
-
 env:
   agentSO: ubuntu-latest
   NODE-VERSION: '14'
