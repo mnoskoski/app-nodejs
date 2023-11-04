@@ -31,7 +31,10 @@ jobs:
           docker scan hello-world
       - name: ExecuteDockerScan
         run: docker scan -f Dockerfile docker-scan:e2e
-        
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+        name: defineVersionNode
       - name: Install Trivy
         run: |
           sudo snap install trivy
